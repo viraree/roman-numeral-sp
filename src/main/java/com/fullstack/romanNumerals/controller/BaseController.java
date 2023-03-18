@@ -1,11 +1,11 @@
-package com.hackerrank.restcontrolleradvice.controller;
+package com.fullstack.romanNumerals.controller;
 
-import com.hackerrank.restcontrolleradvice.dto.BuzzException;
-import com.hackerrank.restcontrolleradvice.dto.FizzBuzzException;
-import com.hackerrank.restcontrolleradvice.dto.FizzBuzzResponse;
-import com.hackerrank.restcontrolleradvice.dto.FizzException;
-import com.hackerrank.restcontrolleradvice.dto.ResponseMessage;
-import com.hackerrank.restcontrolleradvice.enums.FizzBuzzEnum;
+import com.fullstack.romanNumerals.dto.LookupTableResponse;
+import com.fullstack.romanNumerals.dto.BuzzException;
+import com.fullstack.romanNumerals.dto.FizzBuzzException;
+import com.fullstack.romanNumerals.dto.FizzBuzzResponse;
+import com.fullstack.romanNumerals.dto.FizzException;
+import com.fullstack.romanNumerals.enums.FizzBuzzEnum;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class FizzBuzzController {
+public class BaseController {
+
+
+    @RequestMapping(value = "/lookup_table/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LookupTableResponse> getLookupTableResponse( )
+    {
+        LookupTableResponse res=new LookupTableResponse();
+        res.setErrorReason("N/A");
+        res.setStatusCode(200);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        ResponseEntity<LookupTableResponse> result=new ResponseEntity<LookupTableResponse>(res,responseHeaders, HttpStatus.OK );
+        return result;
+    }
+
+
   @RequestMapping(value = "/controller_advice/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<FizzBuzzResponse> getFizzBuzzResponse(@PathVariable("code") String code)
           throws FizzException, BuzzException, FizzBuzzException {
