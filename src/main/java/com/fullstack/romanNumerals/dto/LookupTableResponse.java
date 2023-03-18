@@ -1,4 +1,4 @@
-package com.fullstack.romanNumeral.dto;
+package com.fullstack.romanNumerals.dto;
 
 import com.google.common.collect.ArrayTable;
 
