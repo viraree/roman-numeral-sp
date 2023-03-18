@@ -1,4 +1,4 @@
-package com.hackerrank.restcontrolleradvice.dto;
+package com.fullstack.romanNumerals.dto;
 //import org.json.simple.JSONObject;    
 public class BuzzException extends RuntimeException {
   private final String     message;

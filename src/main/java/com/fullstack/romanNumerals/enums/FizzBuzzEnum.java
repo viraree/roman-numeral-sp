@@ -1,4 +1,4 @@
-package com.hackerrank.restcontrolleradvice.enums;
+package com.fullstack.romanNumerals.enums;
 
 public enum FizzBuzzEnum {
   FIZZ("fizz"),

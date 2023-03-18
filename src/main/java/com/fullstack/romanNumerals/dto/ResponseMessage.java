@@ -1,4 +1,4 @@
-package com.hackerrank.restcontrolleradvice.dto;
+package com.fullstack.romanNumerals.dto;
 
 public class ResponseMessage {
     private String     message;

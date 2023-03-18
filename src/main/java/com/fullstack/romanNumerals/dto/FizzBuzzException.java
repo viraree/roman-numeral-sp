@@ -1,4 +1,4 @@
-package com.hackerrank.restcontrolleradvice.dto;
+package com.fullstack.romanNumerals.dto;
 
 public class FizzBuzzException extends RuntimeException {
   private final String     message;

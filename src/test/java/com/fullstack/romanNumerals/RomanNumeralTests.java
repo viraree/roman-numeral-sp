@@ -1,11 +1,8 @@
-package com.hackerrank.restcontrolleradvice;
+package com.fullstack.romanNumerals;
 
-import com.hackerrank.restcontrolleradvice.controller.FizzBuzzController;
+import com.fullstack.romanNumerals.controller.BaseController;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -13,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 
@@ -21,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 
-@WebMvcTest(FizzBuzzController.class)
-public class DemoApplicationTests {
+@WebMvcTest(BaseController.class)
+public class RomanNumeralTests {
 
 
 	@Autowired
@@ -37,6 +33,16 @@ public class DemoApplicationTests {
 		this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Hello, Mock")));
 	}*/
+
+
+	@Test
+	public void testLookupTable() throws Exception {
+		mockMvc.perform(get("/lookup_table/"))
+				//.andExpect(jsonPath("$.message").value("Fizz Exception has been thrown"))
+				.andExpect(jsonPath("$.errorReason").value("N/A"))
+				.andExpect(status().isOk());
+	}
+
 
 	@Test
 	public void testFizzException() throws Exception {
