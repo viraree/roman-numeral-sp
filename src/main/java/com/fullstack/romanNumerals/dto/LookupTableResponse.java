@@ -164,8 +164,8 @@ public class LookupTableResponse {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new GuavaModule());
             //String jsonString = "{\"table\": {\"1-Digit\":{\"1 Eq.\":\"I\",\"2 Eq.\":\"II\",\"3 Eq.\":\"III\"},\"2-Digit\":{\"1 Eq.\":null,\"2 Eq.\":null,\"3 Eq.\":null}}}";
-            String jsonString =objectMapper.writeValueAsString(map);
-
+            //String jsonString =objectMapper.writeValueAsString(map);
+            String jsonString = "{\"1\":[[\"I\",\"II\"]]}";
             result = objectMapper.readValue(jsonString,
                     objectMapper.getTypeFactory().constructMapLikeType(
                             Multimap.class, Integer.class, String[].class)
