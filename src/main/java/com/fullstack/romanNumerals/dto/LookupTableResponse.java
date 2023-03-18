@@ -40,9 +40,13 @@ public class LookupTableResponse {
     public LookupTableResponse()
     {
         this.lookupTable= ArrayTable.create(
-                List.of("Company A", "Company B"),
-                List.of("Q1", "Q2")
+                List.of("1-Digit", "2-Digit"),
+                List.of("1 Eq.", "2 Eq.", "3 Eq.")
         );
+
+        this.lookupTable.put("1-Digit","1 Eq.","I");
+        this.lookupTable.put("1-Digit","2 Eq.","II");
+        this.lookupTable.put("1-Digit","3 Eq.","III");
 
         this.message="at 0,0 : "+this.lookupTable.at(0,0);
     }

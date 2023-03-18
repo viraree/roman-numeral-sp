@@ -38,7 +38,7 @@ public class RomanNumeralTests {
 	@Test
 	public void testLookupTable() throws Exception {
 		mockMvc.perform(get("/lookup_table/"))
-				//.andExpect(jsonPath("$.message").value("Fizz Exception has been thrown"))
+				.andExpect(jsonPath("$.message").value("at 0,0 : I"))
 				.andExpect(jsonPath("$.errorReason").value("N/A"))
 				.andExpect(status().isOk());
 	}
