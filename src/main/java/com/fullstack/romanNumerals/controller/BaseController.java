@@ -18,14 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 
 @RestController
 public class BaseController {
 
 
     @RequestMapping(value = "/lookup_table/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LookupTableResponse> getLookupTableResponse( )
-    {
+    public ResponseEntity<LookupTableResponse> getLookupTableResponse( ) throws IOException {
         LookupTableResponse res=new LookupTableResponse();
         res.setErrorReason("N/A");
         res.setStatusCode(200);

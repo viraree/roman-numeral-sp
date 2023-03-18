@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.hackerrank.restcontrolleradvice</groupId>
-	<artifactId>RestControllerAdvice</artifactId>
+	<groupId>com.fullstack.romanNumerals</groupId>
+	<artifactId>RestControllerRomanNumerals</artifactId>
 	<version>1.0</version>
-	<name>Rest controller advice question</name>
-	<description>RestController advice question</description>
+	<name>Rest Controller Roman Numerals</name>
+	<description>Rest Controller Roman Numerals Conversion</description>
 	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<com.fasterxml.jackson.version>2.14.2</com.fasterxml.jackson.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,6 +36,37 @@
 			<artifactId>guava</artifactId>
 			<version>31.0.1-jre</version>
 		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${com.fasterxml.jackson.version}</version>
+		</dependency>
+
+		<!-- databinding; ObjectMapper, JsonNode and related classes are here -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${com.fasterxml.jackson.version}</version>
+		</dependency>
+
+		<!-- databinding; Xml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>${com.fasterxml.jackson.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-guava</artifactId>
+			<version>${com.fasterxml.jackson.version}</version>
+		</dependency>
+
 
 	</dependencies>
 
