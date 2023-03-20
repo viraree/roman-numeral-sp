@@ -1,52 +1,24 @@
 package com.fullstack.romanNumerals.dto;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.*;
 
 
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
-import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.io.IOException;
-import java.util.List;
-
-
-
-
-class TableWrapper{
-    private ArrayTable<String, String, String> table;
-
-    public TableWrapper() {
-        this.setTable(ArrayTable.create(
-                List.of("1-Digit", "2-Digit"),
-                List.of("1 Eq.", "2 Eq.", "3 Eq.")
-        ));
-
-        this.getTable().put("1-Digit","1 Eq.","I");
-        this.getTable().put("1-Digit","2 Eq.","II");
-        this.getTable().put("1-Digit","3 Eq.","III");
-    }
-
-    public ArrayTable<String, String, String> getTable() {
-        return table;
-    }
-
-    public void setTable(ArrayTable<String, String, String> table) {
-        this.table = table;
-    }
-}
+import java.util.*;
 
 
 public class LookupTableResponse {
-    private ArrayTable<String, String, String> lookupTable;
+    private ArrayTable<String, String, String> lookupArrTbl;
+    private Hashtable<Integer, String[]> lookupTable;
 
+    private ArrayList<lookupEntry> lookupEntrySet;
 
+    private String[] indicators= {"VI", "XL", "CD","M\\"};
 
     private String message;
 
@@ -54,12 +26,12 @@ public class LookupTableResponse {
     private String errorReason;
 
 
-    public ArrayTable<String, String, String> getLookupTable() {
-        return lookupTable;
+    public ArrayTable<String, String, String> getLookupArrTbl() {
+        return lookupArrTbl;
     }
 
-    public void setLookupTable(ArrayTable<String, String, String> lookupTable) {
-        this.lookupTable = lookupTable;
+    public void setLookupArrTbl(ArrayTable<String, String, String> lookupArrTbl) {
+        this.lookupArrTbl = lookupArrTbl;
     }
 
     public int getStatusCode() {
@@ -78,98 +50,46 @@ public class LookupTableResponse {
         this.errorReason = errorReason;
     }
 
+    public LookupTableResponse() throws IOException {
 
-
-
-    static class NavItem {
-
-        public NavItem() {
-        }
-
-        private String key;
-        private String url;
-
-        public String getKey() {
-            return key;
-        }
-
-        public void setKey(String key) {
-            this.key = key;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
+        this.message="ok";
+        this.errorReason="N/A";
+        this.lookupTable=new Hashtable<Integer, String[]>();
+        this.setLookupEntrySet(new ArrayList<lookupEntry>());
     }
 
-
-    public LookupTableResponse() throws IOException {
-        this.lookupTable= ArrayTable.create(
-                List.of("1-Digit", "2-Digit"),
-                List.of("1 Eq.", "2 Eq.", "3 Eq.")
+    public void createLookupArrTbl() {
+        this.lookupArrTbl = ArrayTable.create(
+                Arrays.asList("1-Digit", "2-Digit"),
+                Arrays.asList("1 Eq.", "2 Eq.", "3 Eq.")
         );
 
-        this.lookupTable.put("1-Digit","1 Eq.","I");
-        this.lookupTable.put("1-Digit","2 Eq.","II");
-        this.lookupTable.put("1-Digit","3 Eq.","III");
+        this.lookupArrTbl.put("1-Digit","1 Eq.","I");
+        this.lookupArrTbl.put("1-Digit","2 Eq.","II");
+        this.lookupArrTbl.put("1-Digit","3 Eq.","III");
 
-
-        this.initLookupMap();
-       // this.generateFromJson();
-
-        this.message="at 0,0 : "+this.lookupTable.at(0,0);
-    }
-
-    public  Multimap<String, NavItem> generateFromJson() throws JsonParseException, JsonMappingException,
-            JsonProcessingException, IOException {
-        Multimap<String, NavItem> navs = null;
-        try {
-            String jsonString = "{\n \"123455\":[\n {\n \"key\":\"Java Exercises\",\n \"url\":\"www.leveluplunch.com/java/exercises/\"\n },\n {\n \"key\":\"Java Examples\",\n \"url\":\"www.leveluplunch.com/java/examples/\"\n }\n ],\n \"999999\":[\n {\n \"key\":\"Java Tutorials\",\n \"url\":\"www.leveluplunch.com/java/tutorials/\"\n },\n {\n \"key\":\"Java Examples\",\n \"url\":\"www.leveluplunch.com/java/examples/\"\n }\n ]\n}";
-
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new GuavaModule());
-
-            navs = objectMapper.readValue(
-                    objectMapper.treeAsTokens(objectMapper.readTree(jsonString)),
-                    objectMapper.getTypeFactory().constructMapLikeType(
-                            Multimap.class, String.class, NavItem.class));
-        }
-        catch (IOException e)
-        {
-            this.message=e.getMessage();
-        }
-        return navs;
+        this.message="at 0,0 : "+this.lookupArrTbl.at(0,0);
     }
 
 
-    public Multimap<Integer, String[]>  initLookupMap() throws IOException {
+    public Hashtable<Integer, String[]> initLookupMap() throws IOException {
 
-        Multimap<Integer, String[]>  result=null;
+        Hashtable<Integer, String[]>  result=null;
 
 
         try {
-
-            Multimap<Integer, String[]> map = ArrayListMultimap.create();
+            Hashtable<Integer, String[]> map = new Hashtable<Integer, String[]>() {
+            };
             String[] eqArray={"I","II"};
             map.put(1, eqArray);
 
-
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new GuavaModule());
-            //String jsonString = "{\"table\": {\"1-Digit\":{\"1 Eq.\":\"I\",\"2 Eq.\":\"II\",\"3 Eq.\":\"III\"},\"2-Digit\":{\"1 Eq.\":null,\"2 Eq.\":null,\"3 Eq.\":null}}}";
-            //String jsonString =objectMapper.writeValueAsString(map);
-            String jsonString = "{\"1\":[[\"I\",\"II\"]]}";
-            result = objectMapper.readValue(jsonString,
-                    objectMapper.getTypeFactory().constructMapLikeType(
-                            Multimap.class, Integer.class, String[].class)
-                    );
+            String jsonString = "{\"1\": [\"\", \"I\", \"II\", \"III\", \"IV\", \"V\", \"VI\", \"VII\", \"VIII\", \"IX\"]," +
+                                "\"2\": [\"\", \"X\", \"XX\", \"XXX\", \"XL\", \"L\", \"LX\", \"LXX\", \"LXXX\", \"XC\"]," +
+                                "\"3\": [\"\", \"C\", \"CC\", \"CCC\", \"CD\", \"D\", \"DC\", \"DCC\", \"DCCC\", \"CM\"]," +
+                                " \"4\": [\"\", \"M\", \"MM\", \"MMM\"]"+
+                                "}";
+            result=buildLookupTable(jsonString);
+            this.lookupTable=result;
         }
 
         catch (IOException e)
@@ -177,14 +97,53 @@ public class LookupTableResponse {
            this.message=e.getMessage();
         }
         //Gson gson = new Gson();
+        return result;
+    }
 
+    private Hashtable<Integer, String[]> buildLookupTable(String jsonString) throws JsonProcessingException {
+        Hashtable<Integer, String[]> result=new Hashtable<Integer, String[]>();
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new GuavaModule());
 
+        result = objectMapper.readValue(jsonString,
+                objectMapper.getTypeFactory().constructMapLikeType(
+                        Hashtable.class, Integer.class, String[].class)
+                );
 
 
         return result;
     }
 
+    public ArrayList<lookupEntry> buildLookupEntrySet()  {
+        ArrayList<lookupEntry> result=new ArrayList<lookupEntry>();
+        lookupEntry entry1=new lookupEntry();
+        String [] rowContent1={"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+        entry1.setRowContent(rowContent1);
+        entry1.setRowIndex(1);
+        result.add(entry1);
+
+        lookupEntry entry2=new lookupEntry();
+        String [] rowContent2={"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        entry2.setRowContent(rowContent2);
+        entry2.setRowIndex(2);
+        result.add(entry2);
+
+        lookupEntry entry3=new lookupEntry();
+        String [] rowContent3={"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        entry3.setRowContent(rowContent3);
+        entry3.setRowIndex(3);
+        result.add(entry3);
+
+        lookupEntry entry4=new lookupEntry();
+        String [] rowContent4={"", "M", "MM", "MMM"};
+        entry4.setRowContent(rowContent4);
+        entry4.setRowIndex(4);
+        result.add(entry4);
+
+        this.setLookupEntrySet(result);
+        return result;
+    }
 
     public String getMessage() {
         return message;
@@ -192,5 +151,29 @@ public class LookupTableResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Hashtable<Integer, String[]> getLookupTable() {
+        return lookupTable;
+    }
+
+    public void setLookupTable(Hashtable<Integer, String[]> lookupTable) {
+        this.lookupTable = lookupTable;
+    }
+
+    public String[] getIndicators() {
+        return indicators;
+    }
+
+    public void setIndicators(String[] indicators) {
+        this.indicators = indicators;
+    }
+
+    public ArrayList<lookupEntry> getLookupEntrySet() {
+        return lookupEntrySet;
+    }
+
+    public void setLookupEntrySet(ArrayList<lookupEntry> lookupEntrySet) {
+        this.lookupEntrySet = lookupEntrySet;
     }
 }

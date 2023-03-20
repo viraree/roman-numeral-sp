@@ -7,7 +7,8 @@ public class ResponseMessage {
 
     public ResponseMessage()
     {
-
+       this.errorReason="N/A";
+       this.message="ok";
     }
 
     public ResponseMessage(String msg, String sts)
@@ -21,5 +22,13 @@ public class ResponseMessage {
   
     public String getErrorReason() {
       return errorReason;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
     }
 }

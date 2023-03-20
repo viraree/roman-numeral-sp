@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class HelloController {
 
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String index() {
         System.out.println("INDEX request:  /");
 

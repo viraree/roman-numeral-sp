@@ -6,5 +6,5 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class FizzBuzzExceptionHandler extends ResponseEntityExceptionHandler {
 
-  //TODO:: implement handler methods for FizzException, BuzzException and FizzBuzzException
+
 }
