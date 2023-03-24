@@ -97,18 +97,34 @@ public class ServiceController {
     public int convertRoman(String roman,LookupTableResponse lookup)
     {
         int res=0;
-
-        for (int i=0;i<4;i++)
+        char start=roman.charAt(0);
+        if (start=='V'||start=='I')
         {
-            int segStartIndex=convertRomanSeg(i,roman,lookup.getIndicators());
-            String segStr=roman.substring(segStartIndex);
-            String[] rowContent=lookup.getLookupEntrySet().get(i).getRowContent();
-            int digit=lookupDigit(segStr,rowContent);
+            String[] rowContent=lookup.getLookupEntrySet().get(0).getRowContent();
+            int curIndex=0;
+            for (String d:rowContent)
+            {
+                if(roman.equals(d))
+                {
+                    res=curIndex;
+                    break;
+                }
+                curIndex++;
+            }
 
-            res+=digit*Math.pow(10,i);
-            roman=roman.substring(0,segStartIndex);
         }
 
+       else {
+            for (int i = 0; i < 4; i++) {
+                int segStartIndex = convertRomanSeg(i, roman, lookup.getIndicators());
+                String segStr = roman.substring(segStartIndex);
+                String[] rowContent = lookup.getLookupEntrySet().get(i).getRowContent();
+                int digit = lookupDigit(segStr, rowContent);
+
+                res += digit * Math.pow(10, i);
+                roman = roman.substring(0, segStartIndex);
+            }
+        }
         return res;
     }
 
@@ -174,7 +190,7 @@ public class ServiceController {
     {
         int result=0;
 
-        AtomicInteger index = new AtomicInteger();
+        /*AtomicInteger index = new AtomicInteger();
         Arrays.stream(digits)
                 .peek((digit) -> index.incrementAndGet())
                 .filter(digit -> digit.equals(segStr))
@@ -182,7 +198,22 @@ public class ServiceController {
 
         int matchIndex=index.get()-1;
 
-        result =matchIndex;
+        result =matchIndex;*/
+
+        int curIndex=0;
+        for (String d:digits)
+        {
+            if(segStr.equals(d))
+            {
+                result=curIndex;
+                break;
+            }
+            curIndex++;
+        }
+
+
+
+
         return result;
 
     }
