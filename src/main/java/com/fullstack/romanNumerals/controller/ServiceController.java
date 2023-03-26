@@ -164,14 +164,13 @@ public class ServiceController {
                        }
                    }
                 }
-
-
-                else {
-                    if (curChar == segIndicatorLeft || curChar == segIndicatorRight) {
+				 
+                else {			
+				    if (curChar == segIndicatorLeft || curChar == segIndicatorRight) {
                         segStart = curIndex;
                         break;
                     }
-                    if (curIndex == lastIndex - 1) {
+                    else if (curIndex == lastIndex - 1) {
                         segStart = curIndex;
                         break;
                     }
