@@ -18,7 +18,7 @@ public class LookupTableResponse {
 
     private ArrayList<lookupEntry> lookupEntrySet;
 
-    private String[] indicators= {"VI", "XL", "CD","M\\"};
+    private String[] indicators= {"IV", "XL", "CD","M\\"};
 
     private String message;
 

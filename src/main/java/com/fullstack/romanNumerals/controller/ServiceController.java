@@ -143,6 +143,19 @@ public class ServiceController {
         {
 
             char curChar;
+			char lastChar='@';
+			if(lastIndex>=0)
+			{
+				lastChar=roman.charAt(lastIndex);
+			}
+			
+			if(lastChar=='V')
+			{
+				segStart=lastIndex;
+				break;
+			}
+			
+			
             int curIndex=lastIndex-i+1;
             if (curIndex>0)
             {
