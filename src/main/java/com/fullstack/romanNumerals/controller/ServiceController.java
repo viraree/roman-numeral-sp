@@ -101,11 +101,6 @@ public class ServiceController {
 
             for (int i = 0; i < 4; i++) {
                 int segStartIndex = convertRomanSeg(i, roman, lookup.getIndicators());
-                if(segStartIndex==-1)
-                {
-                    segStartIndex=roman.length();
-                }
-
                 String segStr = roman.substring(segStartIndex);
                 String[] rowContent = lookup.getLookupEntrySet().get(i).getRowContent();
                 int digit = lookupDigit(segStr, rowContent);
@@ -152,7 +147,7 @@ public class ServiceController {
 
         if(!foundMatch)
         {
-            segStart=-1;
+            segStart=lastIndex+1;
         }
 
 
@@ -165,7 +160,7 @@ public class ServiceController {
     {
         int result=0;
 
-        /*AtomicInteger index = new AtomicInteger();
+        AtomicInteger index = new AtomicInteger();
         Arrays.stream(digits)
                 .peek((digit) -> index.incrementAndGet())
                 .filter(digit -> digit.equals(segStr))
@@ -173,19 +168,7 @@ public class ServiceController {
 
         int matchIndex=index.get()-1;
 
-        result =matchIndex;*/
-
-        int curIndex=0;
-        for (String d:digits)
-        {
-            if(segStr.equals(d))
-            {
-                result=curIndex;
-                break;
-            }
-            curIndex++;
-        }
-
+        result =matchIndex;
         return result;
 
     }
