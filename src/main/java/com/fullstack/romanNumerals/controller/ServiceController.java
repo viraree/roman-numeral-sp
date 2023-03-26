@@ -117,6 +117,11 @@ public class ServiceController {
        else {
             for (int i = 0; i < 4; i++) {
                 int segStartIndex = convertRomanSeg(i, roman, lookup.getIndicators());
+                if(segStartIndex==-1)
+                {
+                    segStartIndex=roman.length();
+                }
+
                 String segStr = roman.substring(segStartIndex);
                 String[] rowContent = lookup.getLookupEntrySet().get(i).getRowContent();
                 int digit = lookupDigit(segStr, rowContent);
@@ -132,6 +137,7 @@ public class ServiceController {
     {
         int result=0;
         int lastIndex=roman.length()-1;
+        boolean foundMatch=false;
 
        // int segCounter=0;
 
@@ -152,46 +158,37 @@ public class ServiceController {
 			if(lastChar=='V')
 			{
 				segStart=lastIndex;
-				break;
+				foundMatch=true;
+                break;
+
 			}
 			
 			
             int curIndex=lastIndex-i+1;
-            if (curIndex>0)
+            if (curIndex>=0)
             {
                 curChar=roman.charAt(curIndex);
-                if(curChar=='M')
-                {
-                    segStart=curIndex;
-                    curIndex--;
-                   if(curIndex>=0)
-                   {
-                       if(curChar=='M')
-                       {
-                           segStart=curIndex;
-                           curIndex--;
-                           if(curIndex>=0)
-                           {
-                               segStart=curIndex;
-                           }
-                       }
-                   }
-                }
-				 
-                else {			
+
 				    if (curChar == segIndicatorLeft || curChar == segIndicatorRight) {
                         segStart = curIndex;
+                        foundMatch=true;
                         break;
                     }
-                    else if (curIndex == lastIndex - 1) {
+                    else if (curIndex == lastIndex - 1 && lastIndex==0) {
                         segStart = curIndex;
+                        foundMatch=true;
                         break;
                     }
                     curIndex += 1;
                 }
             }
 
+
+        if(!foundMatch)
+        {
+            segStart=-1;
         }
+
 
         result=segStart;
         return result;
@@ -222,9 +219,6 @@ public class ServiceController {
             }
             curIndex++;
         }
-
-
-
 
         return result;
 
