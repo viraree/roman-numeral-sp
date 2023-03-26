@@ -139,4 +139,16 @@ public class RomanNumeralTests {
 				.andExpect(status().isOk());
 	}
 
+
+	/*
+     SPECIAL 5
+        'VIII' -> 8
+     */
+	@Test
+	public void testConvertFromRomanSpecialFive() throws Exception {
+		mockMvc.perform(get("/from_roman/VIII"))
+				.andExpect(jsonPath("$.message").value("8"))
+				.andExpect(jsonPath("$.errorReason").value("N/A"))
+				.andExpect(status().isOk());
+	}
 }
